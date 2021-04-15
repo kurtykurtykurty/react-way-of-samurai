@@ -1,0 +1,9 @@
+.profile {
+  grid-area: profile;
+  background: rgb(183, 255, 255);
+}
+
+img {
+  width: 25%;
+  height: 200px;
+}
