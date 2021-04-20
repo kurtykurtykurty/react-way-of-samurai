@@ -1,3 +1,4 @@
+import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Dialogs from "./components/Dialogs";
 import Header from "./components/Header";
@@ -7,14 +8,17 @@ import style from "./index.module.css";
 
 function App() {
   return (
-    <div className="app-wrapper">
-      <Header />
-      <Navbar />
-      <div className={style.content}>
-        {/* <Profile /> */}
-        <Dialogs />
+    <BrowserRouter>
+      {" "}
+      <div className="app-wrapper">
+        <Header />
+        <Navbar />
+        <div className={style.content}>
+          <Route path="/profile" component={Profile} />
+          <Route path="/dialogs" component={Dialogs} />
+        </div>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

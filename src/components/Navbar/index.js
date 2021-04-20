@@ -4,8 +4,12 @@ import style from "./index.module.css";
 const Navbar = () => {
   return (
     <nav className={style.navbar}>
-      <div>Profile</div>
-      <div>Dialogs</div>
+      <div>
+        <a href="/profile">Profile</a>
+      </div>
+      <div>
+        <a href="/dialogs">Dialogs</a>
+      </div>
     </nav>
   );
 };
