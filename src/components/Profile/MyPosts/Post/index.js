@@ -3,9 +3,9 @@ const Post = (props) => {
   return (
     <div className={style.post}>
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/0_Alexander-Helios_Capitolini_%281%29.JPG/170px-0_Alexander-Helios_Capitolini_%281%29.JPG"></img>
-      Post {props.num}
+      {props.message}
       <div>
-        <span>like</span>
+        <span>♥ {props.likes}</span>
       </div>
     </div>
   );
