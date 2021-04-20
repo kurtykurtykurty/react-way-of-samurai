@@ -9,7 +9,6 @@ import style from "./index.module.css";
 function App() {
   return (
     <BrowserRouter>
-      {" "}
       <div className="app-wrapper">
         <Header />
         <Navbar />

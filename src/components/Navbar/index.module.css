@@ -1,4 +1,13 @@
 .navbar {
   grid-area: navbar;
   background: cyan;
+  padding: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+}
+
+.navbar a.active {
+  color: gold;
 }
