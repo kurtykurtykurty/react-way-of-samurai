@@ -1,13 +1,17 @@
-import style from "./index.module.css";
+import style from "./MyPost.module.css";
 import Post from "./Post";
 
 const MyPosts = () => {
   return (
-    <div>
-      My posts
+    <div className={style.postsBlock}>
+      <h3>My posts</h3>
       <div>
-        <textarea></textarea>
-        <button>Add post</button>
+        <div>
+          <textarea></textarea>
+        </div>
+        <div>
+          <button>Add post</button>
+        </div>
       </div>
       <div className={style.posts}>
         <Post message="Hello pidor" likes="0" />
