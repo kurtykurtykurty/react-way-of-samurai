@@ -19,6 +19,9 @@ const Navbar = () => {
         <NavLink to="/form" activeClassName={style.active}>
           Contact Form
         </NavLink>
+        <NavLink to="/myform" activeClassName={style.active}>
+          Form
+        </NavLink>
       </div>
     </nav>
   );

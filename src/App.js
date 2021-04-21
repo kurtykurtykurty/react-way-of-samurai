@@ -8,6 +8,7 @@ import ContactForm from "./components/ReduxForm";
 import style from "./index.module.css";
 import { Provider } from "react-redux";
 import store from "./reducers";
+import Form from "./components/Form";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/profile" component={Profile} />
             <Route path="/dialogs" component={Dialogs} />
             <Route path="/form" component={ContactForm} />
+            <Route path="/myform" component={Form} />
           </div>
         </div>
       </BrowserRouter>
