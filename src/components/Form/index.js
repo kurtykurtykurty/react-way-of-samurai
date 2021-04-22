@@ -12,7 +12,7 @@ const Input = (props) => {
         onBlur={() => props.onBlur(props.id)}
         onChange={(e) => props.onChange(e, props.id)}
       ></input>
-      <div>{props.showEmptyEr ? "пустое поле" : ""}</div>
+      <div>{props.showEmptyEr && "пустое поле"}</div>
     </div>
     //! TODO change style
   );
