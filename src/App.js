@@ -15,13 +15,11 @@ function App(props) {
         <div className={style.content}>
           <Route
             path="/profile"
-            render={() => <Profile posts={props.posts} />}
+            render={() => <Profile state={props.appState.profilePage} />}
           />
           <Route
             path="/dialogs"
-            render={() => (
-              <Dialogs dialogs={props.dialogs} messages={props.messages} />
-            )}
+            render={() => <Dialogs state={props.appState.dialogsPage} />}
           />
         </div>
       </div>
