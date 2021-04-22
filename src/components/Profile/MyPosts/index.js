@@ -1,13 +1,10 @@
 import style from "./MyPost.module.css";
 import Post from "./Post";
 
-const MyPosts = () => {
-  let postsData = [
-    { id: 1, message: "hello, pidor", likesCount: "0" },
-    { id: 2, message: "my secod post", likesCount: "0" },
-  ];
+const MyPosts = (props) => {
+  const posts = props.posts;
 
-  let myPosts = postsData.map((obj) => {
+  let myPosts = posts.map((obj) => {
     return <Post message={obj.message} likes={obj.likesCount} />;
   });
 

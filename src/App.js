@@ -6,15 +6,23 @@ import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import style from "./index.module.css";
 
-function App() {
+function App(props) {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Navbar />
         <div className={style.content}>
-          <Route path="/profile" component={Profile} />
-          <Route path="/dialogs" component={Dialogs} />
+          <Route
+            path="/profile"
+            render={() => <Profile posts={props.posts} />}
+          />
+          <Route
+            path="/dialogs"
+            render={() => (
+              <Dialogs dialogs={props.dialogs} messages={props.messages} />
+            )}
+          />
         </div>
       </div>
     </BrowserRouter>
