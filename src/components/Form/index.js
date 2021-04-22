@@ -67,19 +67,19 @@ class Form extends React.Component {
     return (
       <div>
         <Input
+          id="inputName"
           type="text"
           placeholder="input text"
           onClick={this.handleClick}
-          id="inputName"
           showEmptyEr={this.state.inputName.showEmptyEr}
           onBlur={this.handleFocus}
           onChange={this.handleInput}
         />
         <Input
+          id="inputMail"
           type="email"
           placeholder="input email"
           onClick={this.handleClick}
-          id="inputMail"
           showEmptyEr={this.state.inputMail.showEmptyEr}
           onBlur={this.handleFocus}
           onChange={this.handleInput}
