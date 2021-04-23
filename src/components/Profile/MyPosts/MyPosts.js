@@ -1,9 +1,8 @@
 import React from "react";
 import style from "./MyPost.module.css";
-import Post from "./Post";
+import Post from "./Post/Post";
 
 const MyPosts = (props) => {
-  debugger;
   const posts = props.posts;
 
   let myPosts = posts.map((obj) => {
