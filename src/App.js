@@ -9,6 +9,7 @@ import style from "./index.module.css";
 import { Provider } from "react-redux";
 import store from "./reducers";
 import Form from "./components/Form";
+import Observer from "./components/Observer/observer";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/dialogs" component={Dialogs} />
             <Route path="/form" component={ContactForm} />
             <Route path="/myform" component={Form} />
+            <Route path="/observer" component={Observer} />
           </div>
         </div>
       </BrowserRouter>

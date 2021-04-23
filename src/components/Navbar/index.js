@@ -25,6 +25,11 @@ const Navbar = () => {
           Form
         </NavLink>
       </div>
+      <div>
+        <NavLink to="/observer" activeClassName={style.active}>
+          Observer
+        </NavLink>
+      </div>
     </nav>
   );
 };
