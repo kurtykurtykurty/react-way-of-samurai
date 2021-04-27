@@ -1,6 +1,6 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import Dialogs from "./components/Dialogs";
+import Dialogs from "./components/Dialogs/Dialogs";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile/Profile";
@@ -24,7 +24,7 @@ function App(props) {
           />
           <Route
             path="/dialogs"
-            render={() => <Dialogs state={props.appState.dialogsPage} />}
+            render={() => <Dialogs store={props.store} />}
           />
         </div>
       </div>
