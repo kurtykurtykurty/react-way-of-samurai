@@ -29,7 +29,7 @@ const Dialogs = (props) => {
   const onSendMessageClick = () => {
     props.store.dispatch(sendNewMessageActionCreator());
   };
-
+  debugger;
   return (
     <div className={style.dialogs}>
       <div className={style.dialogsItems}>{dialogsElements}</div>
