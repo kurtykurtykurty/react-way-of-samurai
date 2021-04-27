@@ -4,7 +4,7 @@ import Message from "./Message/Message";
 import {
   sendNewMessageActionCreator,
   updateNewMessageBodyActionCreator,
-} from "../../redux/store";
+} from "../../redux/dialogsReducer";
 
 const Dialogs = (props) => {
   const state = props.store.getState().dialogsPage;
