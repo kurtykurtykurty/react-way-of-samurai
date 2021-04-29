@@ -12,17 +12,18 @@ function App() {
       <div className="app-wrapper">
         <Header />
         <Navbar />
+
         <div className={style.content}>
           <Route
             path="/profile"
             render={() => {
-              <Profile />;
+              return <Profile />;
             }}
           />
           <Route
             path="/dialogs"
             render={() => {
-              <DialogsContainer />;
+              return <DialogsContainer />;
             }}
           />
         </div>

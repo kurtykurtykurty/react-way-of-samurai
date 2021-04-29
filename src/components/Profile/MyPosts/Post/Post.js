@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import style from './index.module.css';
+
 const Post = (props) => {
   return (
     <div className={style.post}>
@@ -8,7 +10,7 @@ const Post = (props) => {
       />
       {props.message}
       <div>
-        <span>♥ {props.likes}</span>
+        <span>♥{props.likes}</span>
       </div>
     </div>
   );

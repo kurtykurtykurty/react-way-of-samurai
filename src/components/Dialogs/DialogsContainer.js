@@ -1,9 +1,9 @@
+import StoreContext from '../../redux/StoreContext';
+import Dialogs from './Dialogs';
 import {
   sendNewMessageActionCreator,
   updateNewMessageBodyActionCreator,
 } from '../../redux/dialogsReducer';
-import StoreContext from '../../redux/StoreContext';
-import Dialogs from './Dialogs';
 
 const DialogsContainer = () => {
   return (
