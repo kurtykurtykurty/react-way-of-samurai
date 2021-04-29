@@ -1,6 +1,6 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
-import Dialogs from "./components/Dialogs/Dialogs";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile/Profile";
@@ -15,16 +15,11 @@ function App(props) {
         <div className={style.content}>
           <Route
             path="/profile"
-            render={() => (
-              <Profile
-                state={props.appState.profilePage}
-                dispatch={props.dispatch}
-              />
-            )}
+            render={() => <Profile store={props.store} />}
           />
           <Route
             path="/dialogs"
-            render={() => <Dialogs store={props.store} />}
+            render={() => <DialogsContainer store={props.store} />}
           />
         </div>
       </div>
