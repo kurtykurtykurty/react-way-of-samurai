@@ -1,8 +1,8 @@
-import style from "./index.module.css";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import ProfileInfo from "./ProfileInfo";
+import style from './index.module.css';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
+import ProfileInfo from './ProfileInfo';
 
-const Profile = (props) => {
+const Profile = () => {
   return (
     <div>
       <ProfileInfo />

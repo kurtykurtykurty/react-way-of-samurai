@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+
 const StoreContext = React.createContext(null);
 export const Provider = (props) => {
   return (
@@ -7,4 +8,5 @@ export const Provider = (props) => {
     </StoreContext.Provider>
   );
 };
+
 export default StoreContext;

@@ -1,4 +1,4 @@
-import style from "../index.module.css";
+import style from '../index.module.css';
 
 const Message = (props) => {
   return <div className={style.message}>{props.message}</div>;

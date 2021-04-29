@@ -1,9 +1,9 @@
-import style from "./index.module.css";
-import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
+import style from './index.module.css';
+import DialogItem from './DialogItem/DialogItem';
+import Message from './Message/Message';
 
 const Dialogs = (props) => {
-  const state = props.state;
+  const { state } = props;
   const dialogsElements = state.dialogs.map((obj) => {
     return <DialogItem name={obj.name} id={obj.id} />;
   });
@@ -30,10 +30,12 @@ const Dialogs = (props) => {
             placeholder="Enter your message"
             onChange={onMessageChange}
             value={state.newMessageBody}
-          ></textarea>
+          />
         </div>
         <div>
-          <button onClick={onSendMessageClick}>Send</button>
+          <button type="button" onClick={onSendMessageClick}>
+            Send
+          </button>
         </div>
       </div>
     </div>

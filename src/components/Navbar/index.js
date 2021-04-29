@@ -1,6 +1,6 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import style from "./index.module.css";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import style from './index.module.css';
 
 const Navbar = () => {
   return (

@@ -1,16 +1,16 @@
-import React from "react";
-import style from "./MyPost.module.css";
-import Post from "./Post/Post";
+import React from 'react';
+import style from './MyPost.module.css';
+import Post from './Post/Post';
 
 const MyPosts = (props) => {
-  const posts = props.posts;
+  const { posts } = props;
 
-  let myPosts = posts.map((obj) => {
+  const myPosts = posts.map((obj) => {
     return <Post message={obj.message} likes={obj.likesCount} />;
   });
 
-  let onPostChange = (e) => {
-    let text = e.target.value;
+  const onPostChange = (e) => {
+    const text = e.target.value;
     props.updateNewPostText(text);
   };
 
@@ -23,13 +23,12 @@ const MyPosts = (props) => {
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea
-            value={props.newPostText}
-            onChange={onPostChange}
-          ></textarea>
+          <textarea value={props.newPostText} onChange={onPostChange} />
         </div>
         <div>
-          <button onClick={onAddPost}>Add post</button>
+          <button type="button" onClick={onAddPost}>
+            Add post
+          </button>
         </div>
       </div>
       <div className={style.posts}>{myPosts}</div>

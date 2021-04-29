@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import {
   addPostActionCreator,
   updateNewPostTextActionCreator,
-} from "../../../redux/profileReducer";
-import StoreContext from "../../../redux/StoreContext";
-import MyPosts from "./MyPosts";
+} from '../../../redux/profileReducer';
+import StoreContext from '../../../redux/StoreContext';
+import MyPosts from './MyPosts';
 
 const MyPostsContainer = () => {
   return (
@@ -12,7 +12,7 @@ const MyPostsContainer = () => {
       {(store) => {
         const state = store.getState();
 
-        let onPostChange = (text) => {
+        const onPostChange = (text) => {
           store.dispatch(updateNewPostTextActionCreator(text));
         };
 
