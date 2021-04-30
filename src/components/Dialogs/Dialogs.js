@@ -3,7 +3,7 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 
 const Dialogs = (props) => {
-  const { state } = props;
+  const state = props.dialogsPage;
   const dialogsElements = state.dialogs.map((obj) => {
     return <DialogItem name={obj.name} id={obj.id} />;
   });
