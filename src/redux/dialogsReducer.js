@@ -24,21 +24,21 @@ const initialState = {
 const dialogsReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_NEW_MESSAGE_BODY: {
-      const newState = { ...state };
-      newState.newMessageBody = action.body;
-      return newState;
+      return { ...state, newMessageBody: action.body };
     }
 
     case SEND_MESSAGE: {
       const body = state.newMessageBody;
-      state.newMessageBody = '';
       const newMessage = {
         id: 3,
         message: body,
       };
-      const newState = { ...state, ...state.messages };
-      newState.messages.push(newMessage);
-      return newState;
+
+      return {
+        ...state,
+        messages: [...state.messages, newMessage],
+        newMessageBody: '',
+      };
     }
 
     default:
@@ -54,6 +54,7 @@ export const updateNewMessageBodyActionCreator = (body) => {
     body,
   };
 };
+
 export const sendNewMessageActionCreator = () => {
   return {
     type: SEND_MESSAGE,

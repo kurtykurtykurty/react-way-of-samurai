@@ -6,7 +6,7 @@ const MyPosts = (props) => {
   const { posts } = props;
 
   const myPosts = posts.map((obj) => {
-    return <Post message={obj.message} likes={obj.likesCount} />;
+    return <Post message={obj.message} likes={obj.likesCount} key={obj.id} />;
   });
 
   const onPostChange = (e) => {
