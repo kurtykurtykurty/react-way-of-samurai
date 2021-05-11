@@ -16,6 +16,11 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div>
+        <NavLink to="/users" activeClassName={style.active}>
+          Users
+        </NavLink>
+      </div>
+      <div>
         <a>News</a>
       </div>
     </nav>

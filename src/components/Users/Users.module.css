@@ -1,0 +1,7 @@
+.container {
+    display: flex;
+}
+.userpic {
+    height: 50px;
+    width: 50px;
+}
