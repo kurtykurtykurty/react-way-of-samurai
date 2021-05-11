@@ -3,7 +3,7 @@ import style from './Users.module.css';
 
 const User = (props) => {
     return (
-        <div key={props.key} className={style.container}>
+        <div className={style.container}>
             <div>
                 <img src={props.photo} className={style.userpic} alt="" />
                 <div>
@@ -75,6 +75,7 @@ const Users = (props) => {
         return (
             <User
                 id={u.id}
+                key={u.id}
                 name={u.fullName}
                 status={u.status}
                 photo={u.photoUrl}
