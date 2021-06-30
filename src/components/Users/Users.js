@@ -48,12 +48,15 @@ const User = (props) => {
 const Users = (props) => {
     const state = props.usersPage;
 
-    if (state.users.length === 0) {
-        axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
-            .then((response) => {
-                props.setUsers(response.data.items);
-            });
+    const getUsers = () => {
+        if (state.users.length === 0) {
+            axios
+                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .then((response) => {
+                    props.setUsers(response.data.items);
+                });
+        }
+
         // props.setUsers([
         //     {
         //         id: '1',
@@ -83,7 +86,7 @@ const Users = (props) => {
         //             'https://блоха.com/sites/default/files/styles/avatar/public/userpic.png',
         //     },
         // ]);
-    }
+    };
 
     const UserList = state.users.map((u) => {
         return (
@@ -107,6 +110,7 @@ const Users = (props) => {
     return (
         <div>
             Users component
+            <button onClick={getUsers}>Get users</button>
             {UserList}
         </div>
     );
