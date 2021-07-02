@@ -1,4 +1,5 @@
 /* eslint-disable react/button-has-type */
+import React from 'react';
 import * as axios from 'axios';
 import style from './Users.module.css';
 
@@ -45,75 +46,62 @@ const User = (props) => {
     );
 };
 
-const Users = (props) => {
-    const state = props.usersPage;
+class Users extends React.Component {
+    constructor(props) {
+        super(props);
 
-    const getUsers = () => {
+        const state = this.props.usersPage;
+
         if (state.users.length === 0) {
             axios
                 .get('https://social-network.samuraijs.com/api/1.0/users')
                 .then((response) => {
-                    props.setUsers(response.data.items);
+                    this.props.setUsers(response.data.items);
                 });
         }
+    }
 
-        // props.setUsers([
-        //     {
-        //         id: '1',
-        //         followed: true,
-        //         fullName: 'Хуёмоё',
-        //         status: 'Хуятус',
-        //         location: { city: 'Блядск', country: 'Ебаландия' },
-        //         photoUrl:
-        //             'https://блоха.com/sites/default/files/styles/avatar/public/userpic.png',
-        //     },
-        //     {
-        //         id: '2',
-        //         followed: false,
-        //         fullName: 'Еблан',
-        //         status: 'Хуятус',
-        //         location: { city: 'Блядск', country: 'Ебаландия' },
-        //         photoUrl:
-        //             'https://блоха.com/sites/default/files/styles/avatar/public/userpic.png',
-        //     },
-        //     {
-        //         id: '3',
-        //         followed: false,
-        //         fullName: 'Чмоня',
-        //         status: 'Блятус',
-        //         location: { city: 'Чмоньск', country: 'Чмостан' },
-        //         photoUrl:
-        //             'https://блоха.com/sites/default/files/styles/avatar/public/userpic.png',
-        //     },
-        // ]);
+    getUsers = () => {
+        const state = this.props.usersPage;
+
+        if (state.users.length === 0) {
+            axios
+                .get('https://social-network.samuraijs.com/api/1.0/users')
+                .then((response) => {
+                    this.props.setUsers(response.data.items);
+                });
+        }
     };
 
-    const UserList = state.users.map((u) => {
-        return (
-            <User
-                id={u.id}
-                key={u.id}
-                name={u.name}
-                status={u.status}
-                photo={u.photos.small}
-                isFollowed={u.followed}
-                follow={(id) => {
-                    props.follow(id);
-                }}
-                unfollow={(id) => {
-                    props.unfollow(id);
-                }}
-            />
-        );
-    });
+    render() {
+        const state = this.props.usersPage;
 
-    return (
-        <div>
-            Users component
-            <button onClick={getUsers}>Get users</button>
-            {UserList}
-        </div>
-    );
-};
+        const UserList = state.users.map((u) => {
+            return (
+                <User
+                    id={u.id}
+                    key={u.id}
+                    name={u.name}
+                    status={u.status}
+                    photo={u.photos.small}
+                    isFollowed={u.followed}
+                    follow={(id) => {
+                        this.props.follow(id);
+                    }}
+                    unfollow={(id) => {
+                        this.props.unfollow(id);
+                    }}
+                />
+            );
+        });
+        return (
+            <div>
+                Users component
+                <button onClick={this.getUsers}>Get users</button>
+                {UserList}
+            </div>
+        );
+    }
+}
 
 export default Users;
