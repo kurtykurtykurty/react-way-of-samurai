@@ -1,4 +1,6 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disable operator-linebreak */
+/* eslint-disable react/jsx-one-expression-per-line */
+
 import React from 'react';
 import * as axios from 'axios';
 import style from './Users.module.css';
@@ -47,32 +49,40 @@ const User = (props) => {
 };
 
 class Users extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {
         axios
-            .get('https://social-network.samuraijs.com/api/1.0/users')
+            .get(
+                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+            )
             .then((response) => {
                 this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
             });
     }
 
-    getUsers = () => {
-        const state = this.props.usersPage;
-
-        if (state.users.length === 0) {
-            axios
-                .get('https://social-network.samuraijs.com/api/1.0/users')
-                .then((response) => {
-                    this.props.setUsers(response.data.items);
-                });
-        }
+    onPageChanged = (currentPage) => {
+        this.props.setCurrentPage(currentPage);
+        axios
+            .get(
+                `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`,
+            )
+            .then((response) => {
+                this.props.setUsers(response.data.items);
+            });
     };
 
     render() {
         const state = this.props.usersPage;
+
+        const pagesCount = Math.ceil(
+            this.props.totalUsersCount / this.props.pageSize,
+        );
+
+        const pages = [];
+
+        for (let i = 1; i <= pagesCount; i += 1) {
+            pages.push(i);
+        }
 
         const UserList = state.users.map((u) => {
             return (
@@ -94,8 +104,29 @@ class Users extends React.Component {
         });
         return (
             <div>
+                <div>
+                    {pages.map((i) => {
+                        return (
+                            <button
+                                type="button"
+                                key={i}
+                                className={
+                                    this.props.currentPage === i &&
+                                    style.activePage
+                                }
+                                onClick={(e) => {
+                                    this.onPageChanged(i);
+                                }}
+                            >
+                                [{i}]
+                            </button>
+                        );
+                    })}
+                </div>
                 Users component
-                <button onClick={this.getUsers}>Get users</button>
+                <button type="button" onClick={this.getUsers}>
+                    Get users
+                </button>
                 {UserList}
             </div>
         );
