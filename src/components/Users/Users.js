@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
 import React from 'react';
-import * as axios from 'axios';
 import style from './Users.module.css';
 
 const User = (props) => {
@@ -48,89 +47,59 @@ const User = (props) => {
     );
 };
 
-class Users extends React.Component {
-    componentDidMount() {
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-            )
-            .then((response) => {
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            });
+const Users = (props) => {
+    const state = props.usersPage;
+
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
+
+    const pages = [];
+
+    for (let i = 1; i <= pagesCount; i += 1) {
+        pages.push(i);
     }
 
-    onPageChanged = (currentPage) => {
-        this.props.setCurrentPage(currentPage);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${this.props.pageSize}`,
-            )
-            .then((response) => {
-                this.props.setUsers(response.data.items);
-            });
-    };
-
-    render() {
-        const state = this.props.usersPage;
-
-        const pagesCount = Math.ceil(
-            this.props.totalUsersCount / this.props.pageSize,
-        );
-
-        const pages = [];
-
-        for (let i = 1; i <= pagesCount; i += 1) {
-            pages.push(i);
-        }
-
-        const UserList = state.users.map((u) => {
-            return (
-                <User
-                    id={u.id}
-                    key={u.id}
-                    name={u.name}
-                    status={u.status}
-                    photo={u.photos.small}
-                    isFollowed={u.followed}
-                    follow={(id) => {
-                        this.props.follow(id);
-                    }}
-                    unfollow={(id) => {
-                        this.props.unfollow(id);
-                    }}
-                />
-            );
-        });
+    const UserList = state.users.map((u) => {
         return (
-            <div>
-                <div>
-                    {pages.map((i) => {
-                        return (
-                            <button
-                                type="button"
-                                key={i}
-                                className={
-                                    this.props.currentPage === i &&
-                                    style.activePage
-                                }
-                                onClick={(e) => {
-                                    this.onPageChanged(i);
-                                }}
-                            >
-                                [{i}]
-                            </button>
-                        );
-                    })}
-                </div>
-                Users component
-                <button type="button" onClick={this.getUsers}>
-                    Get users
-                </button>
-                {UserList}
-            </div>
+            <User
+                id={u.id}
+                key={u.id}
+                name={u.name}
+                status={u.status}
+                photo={u.photos.small}
+                isFollowed={u.followed}
+                follow={(id) => {
+                    props.follow(id);
+                }}
+                unfollow={(id) => {
+                    props.unfollow(id);
+                }}
+            />
         );
-    }
-}
+    });
+    return (
+        <div>
+            <div>
+                {pages.map((i) => {
+                    return (
+                        <button
+                            type="button"
+                            key={i}
+                            className={
+                                props.currentPage === i && style.activePage
+                            }
+                            onClick={(e) => {
+                                props.onPageChanged(i);
+                            }}
+                        >
+                            [{i}]
+                        </button>
+                    );
+                })}
+            </div>
+            Users component
+            {UserList}
+        </div>
+    );
+};
 
 export default Users;
