@@ -1,8 +1,10 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-one-expression-per-line */
 
 import React from 'react';
 import style from './Users.module.css';
+import Preloader from '../common/Preloader/Preloader';
 
 const User = (props) => {
     return (
@@ -54,8 +56,20 @@ const Users = (props) => {
 
     const pages = [];
 
-    for (let i = 1; i <= pagesCount; i += 1) {
-        pages.push(i);
+    if (props.currentPage + 4 <= pagesCount) {
+        for (
+            let i = props.currentPage - 1;
+            i <= props.currentPage + 4;
+            i += 1
+        ) {
+            if (i > 0) {
+                pages.push(i);
+            }
+        }
+    } else {
+        for (let i = props.currentPage; i <= pagesCount; i += 1) {
+            pages.push(i);
+        }
     }
 
     const UserList = state.users.map((u) => {
@@ -79,6 +93,7 @@ const Users = (props) => {
     return (
         <div>
             <div>
+                {props.isFetching && <Preloader />}
                 {pages.map((i) => {
                     return (
                         <button
@@ -91,12 +106,15 @@ const Users = (props) => {
                                 props.onPageChanged(i);
                             }}
                         >
-                            [{i}]
+                            {i === props.currentPage - 1
+                                ? '<'
+                                : i === props.currentPage + 4
+                                ? '>'
+                                : i}
                         </button>
                     );
                 })}
             </div>
-            Users component
             {UserList}
         </div>
     );
