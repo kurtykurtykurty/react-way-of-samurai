@@ -93,7 +93,6 @@ const Users = (props) => {
     return (
         <div>
             <div>
-                {props.isFetching && <Preloader />}
                 {pages.map((i) => {
                     return (
                         <button
@@ -114,6 +113,7 @@ const Users = (props) => {
                         </button>
                     );
                 })}
+                <div>{props.isFetching && <Preloader />}</div>
             </div>
             {UserList}
         </div>
