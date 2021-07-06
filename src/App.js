@@ -16,7 +16,7 @@ function App() {
 
                 <div className={style.content}>
                     <Route
-                        path="/profile"
+                        path="/profile/:userId?"
                         render={() => {
                             return <ProfileContainer />;
                         }}
