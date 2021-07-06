@@ -3,6 +3,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import style from './Users.module.css';
 import Preloader from '../common/Preloader/Preloader';
 
@@ -10,15 +11,17 @@ const User = (props) => {
     return (
         <div className={style.container}>
             <div>
-                <img
-                    src={
-                        props.photo != null
-                            ? props.photo
-                            : 'https://блоха.com/sites/default/files/styles/avatar/public/userpic.png'
-                    }
-                    className={style.userpic}
-                    alt=""
-                />
+                <NavLink to={`/profile/${props.id}`}>
+                    <img
+                        src={
+                            props.photo != null
+                                ? props.photo
+                                : 'https://блоха.com/sites/default/files/styles/avatar/public/userpic.png'
+                        }
+                        className={style.userpic}
+                        alt=""
+                    />
+                </NavLink>
                 <div>
                     {props.isFollowed ? (
                         <button

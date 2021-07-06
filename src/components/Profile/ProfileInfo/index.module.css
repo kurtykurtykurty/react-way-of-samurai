@@ -6,3 +6,7 @@
     width: 25%;
     height: 200px;
 }
+
+li ul {
+    font-weight: bold;
+}

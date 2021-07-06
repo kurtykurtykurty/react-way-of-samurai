@@ -3,7 +3,7 @@ import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
-import Profile from './components/Profile/Profile';
+import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import style from './index.module.css';
 
@@ -18,7 +18,7 @@ function App() {
                     <Route
                         path="/profile"
                         render={() => {
-                            return <Profile />;
+                            return <ProfileContainer />;
                         }}
                     />
                     <Route
