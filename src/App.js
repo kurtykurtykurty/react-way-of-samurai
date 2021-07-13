@@ -1,7 +1,7 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Header from './components/Header';
+import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
@@ -11,7 +11,7 @@ function App() {
     return (
         <BrowserRouter>
             <div className="app-wrapper">
-                <Header />
+                <HeaderContainer />
                 <Navbar />
 
                 <div className={style.content}>

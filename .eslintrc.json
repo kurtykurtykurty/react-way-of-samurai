@@ -27,6 +27,7 @@
         "arrow-body-style": ["error", "always"],
         "react/prop-types": [0],
         "react/destructuring-assignment": [0],
-        "no-debugger": [0]
+        "no-debugger": [0],
+        "no-console": [0]
     }
 }

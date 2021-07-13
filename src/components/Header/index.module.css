@@ -1,4 +1,9 @@
 .header {
-  grid-area: header;
-  background: darkcyan;
+    grid-area: header;
+    background: darkcyan;
+}
+
+.loginBlock {
+    float: right;
+    background: white;
 }
