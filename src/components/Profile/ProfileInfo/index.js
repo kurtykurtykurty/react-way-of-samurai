@@ -15,7 +15,7 @@ const Profile = (props) => {
                     src={
                         props.profile.photos.large
                             ? props.profile.photos.large
-                            : 'https://upload.wikimedia.org/wikipedia/commons/b/bb/Alexander_cuts_the_Gordian_Knot.jpg'
+                            : 'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'
                     }
                     alt=""
                 />
