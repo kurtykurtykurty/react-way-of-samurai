@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import * as axios from 'axios';
 import style from './Users.module.css';
 import Preloader from '../common/Preloader/Preloader';
 
@@ -27,7 +28,23 @@ const User = (props) => {
                         <button
                             type="button"
                             onClick={() => {
-                                props.unfollow(props.id);
+                                axios
+                                    .delete(
+                                        `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+
+                                        {
+                                            withCredentials: true,
+                                            headers: {
+                                                'API-KEY':
+                                                    '92aa74a7-fa70-4d6c-8d8b-20a6b237851e',
+                                            },
+                                        },
+                                    )
+                                    .then((response) => {
+                                        if (response.data.resultCode === 0) {
+                                            props.unfollow(props.id);
+                                        }
+                                    });
                             }}
                         >
                             unfollow
@@ -36,7 +53,23 @@ const User = (props) => {
                         <button
                             type="button"
                             onClick={() => {
-                                props.follow(props.id);
+                                axios
+                                    .post(
+                                        `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
+                                        {},
+                                        {
+                                            withCredentials: true,
+                                            headers: {
+                                                'API-KEY':
+                                                    '92aa74a7-fa70-4d6c-8d8b-20a6b237851e',
+                                            },
+                                        },
+                                    )
+                                    .then((response) => {
+                                        if (response.data.resultCode === 0) {
+                                            props.follow(props.id);
+                                        }
+                                    });
                             }}
                         >
                             follow
@@ -102,7 +135,9 @@ const Users = (props) => {
                             type="button"
                             key={i}
                             className={
-                                props.currentPage === i && style.activePage
+                                props.currentPage === i
+                                    ? style.activePage
+                                    : undefined
                             }
                             onClick={(e) => {
                                 props.onPageChanged(i);
