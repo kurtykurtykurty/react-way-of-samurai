@@ -8,19 +8,19 @@ import Profile from './Profile';
 import { setUserProfile } from '../../redux/profileReducer';
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
-        let { userId } = this.props;
-        if (!userId) {
-            userId = 2;
-        }
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/profile/${userId}`,
-            )
-            .then((response) => {
-                this.props.setUserProfile(response.data);
-            });
-    }
+    // componentDidMount() {
+    //     let { userId } = this.props;
+    //     if (!userId) {
+    //         userId = 2;
+    //     }
+    //     axios
+    //         .get(
+    //             `https://social-network.samuraijs.com/api/1.0/profile/${userId}`,
+    //         )
+    //         .then((response) => {
+    //             this.props.setUserProfile(response.data);
+    //         });
+    // }
 
     componentWillUnmount() {
         console.log('profile unmount');
