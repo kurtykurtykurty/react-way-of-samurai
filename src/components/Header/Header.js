@@ -17,7 +17,6 @@ const Header = (props) => {
             </NavLink>
             <div className={style.loginBlock}>
                 <div>
-                    {/* <img scr={props.img} alt="" /> */}
                     <img
                         className={style.userPic}
                         src={

@@ -22,13 +22,16 @@ class HeaderContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`,
-            )
-            .then((response) => {
-                this.props.setUserProfile(response.data);
-            });
+        console.log('componentDidUpdate header container');
+        if (this.props.profile === null) {
+            axios
+                .get(
+                    `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}`,
+                )
+                .then((response) => {
+                    this.props.setUserProfile(response.data);
+                });
+        }
     }
 
     render() {

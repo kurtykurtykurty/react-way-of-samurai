@@ -4,9 +4,9 @@
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import * as axios from 'axios';
 import style from './Users.module.css';
 import Preloader from '../common/Preloader/Preloader';
+import { usersAPI } from '../../api/api';
 
 const User = (props) => {
     return (
@@ -28,23 +28,11 @@ const User = (props) => {
                         <button
                             type="button"
                             onClick={() => {
-                                axios
-                                    .delete(
-                                        `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-
-                                        {
-                                            withCredentials: true,
-                                            headers: {
-                                                'API-KEY':
-                                                    '92aa74a7-fa70-4d6c-8d8b-20a6b237851e',
-                                            },
-                                        },
-                                    )
-                                    .then((response) => {
-                                        if (response.data.resultCode === 0) {
-                                            props.unfollow(props.id);
-                                        }
-                                    });
+                                usersAPI.unfollow(props.id).then((response) => {
+                                    if (response.resultCode === 0) {
+                                        props.unfollow(props.id);
+                                    }
+                                });
                             }}
                         >
                             unfollow
@@ -53,23 +41,11 @@ const User = (props) => {
                         <button
                             type="button"
                             onClick={() => {
-                                axios
-                                    .post(
-                                        `https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-                                        {},
-                                        {
-                                            withCredentials: true,
-                                            headers: {
-                                                'API-KEY':
-                                                    '92aa74a7-fa70-4d6c-8d8b-20a6b237851e',
-                                            },
-                                        },
-                                    )
-                                    .then((response) => {
-                                        if (response.data.resultCode === 0) {
-                                            props.follow(props.id);
-                                        }
-                                    });
+                                usersAPI.follow(props.id).then((response) => {
+                                    if (response.resultCode === 0) {
+                                        props.follow(props.id);
+                                    }
+                                });
                             }}
                         >
                             follow
