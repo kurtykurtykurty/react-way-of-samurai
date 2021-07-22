@@ -6,6 +6,15 @@ import style from './index.module.css';
 const Header = (props) => {
     return (
         <header className={style.header}>
+            <NavLink to="/">
+                <div className={style.appLogo}>
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1280px-React-icon.svg.png"
+                        className={style.logoImg}
+                        alt=""
+                    />
+                </div>
+            </NavLink>
             <div className={style.loginBlock}>
                 <div>
                     {/* <img scr={props.img} alt="" /> */}
