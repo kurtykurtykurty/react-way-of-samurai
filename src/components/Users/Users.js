@@ -1,6 +1,5 @@
+// /* eslint-disable no-unused-expressions */
 /* eslint-disable no-nested-ternary */
-/* eslint-disable operator-linebreak */
-/* eslint-disable react/jsx-one-expression-per-line */
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -9,6 +8,7 @@ import Preloader from '../common/Preloader/Preloader';
 import { usersAPI } from '../../api/api';
 
 const User = (props) => {
+    const myUser = 18645;
     return (
         <div className={style.container}>
             <div>
@@ -27,11 +27,20 @@ const User = (props) => {
                     {props.isFollowed ? (
                         <button
                             type="button"
+                            disabled={props.followingInProgress.some((id) => {
+                                return id === props.id;
+                            })}
                             onClick={() => {
+                                props.toggleFollowingProgress(true, props.id);
+                                console.log(props.id);
                                 usersAPI.unfollow(props.id).then((response) => {
                                     if (response.resultCode === 0) {
                                         props.unfollow(props.id);
                                     }
+                                    props.toggleFollowingProgress(
+                                        false,
+                                        props.id,
+                                    );
                                 });
                             }}
                         >
@@ -40,11 +49,21 @@ const User = (props) => {
                     ) : (
                         <button
                             type="button"
+                            disabled={props.followingInProgress.some((id) => {
+                                return id === props.id;
+                            })}
                             onClick={() => {
+                                props.toggleFollowingProgress(true, props.id);
+                                console.log(props.id);
+                                console.log('click');
                                 usersAPI.follow(props.id).then((response) => {
                                     if (response.resultCode === 0) {
                                         props.follow(props.id);
                                     }
+                                    props.toggleFollowingProgress(
+                                        false,
+                                        props.id,
+                                    );
                                 });
                             }}
                         >
@@ -99,6 +118,10 @@ const Users = (props) => {
                 unfollow={(id) => {
                     props.unfollow(id);
                 }}
+                toggleFollowingProgress={(isFetching, userId) => {
+                    props.toggleFollowingProgress(isFetching, userId);
+                }}
+                followingInProgress={props.followingInProgress}
             />
         );
     });
