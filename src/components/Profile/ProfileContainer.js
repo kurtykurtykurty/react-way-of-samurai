@@ -1,25 +1,22 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
-import * as axios from 'axios';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Profile from './Profile';
-import { setUserProfile } from '../../redux/profileReducer';
+import {
+    setUserProfile,
+    getUserProfileThunkCreator,
+} from '../../redux/profileReducer';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let { userId } = this.props;
-        if (!userId) {
-            userId = 2;
-        }
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/profile/${userId}`,
-            )
-            .then((response) => {
-                this.props.setUserProfile(response.data);
-            });
+        // let { userId } = this.props;
+        // if (!userId) {
+        //     userId = 2;
+        // }
+        // this.props.getUserProfile(userId); //! !!!
     }
 
     componentWillUnmount() {
@@ -35,6 +32,7 @@ const mapStateToProps = (state) => {
 };
 
 const WithURLDataContainerComponent = withRouter(ProfileContainer);
-export default connect(mapStateToProps, { setUserProfile })(
-    WithURLDataContainerComponent,
-);
+export default connect(mapStateToProps, {
+    setUserProfile,
+    getUserProfile: getUserProfileThunkCreator,
+})(WithURLDataContainerComponent);

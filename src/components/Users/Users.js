@@ -108,7 +108,6 @@ const Users = (props) => {
         <div>
             <div>
                 {pages.map((i) => {
-                    console.log('pages map');
                     return (
                         <button
                             type="button"

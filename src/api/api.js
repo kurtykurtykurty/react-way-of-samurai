@@ -47,6 +47,20 @@ export const usersAPI = {
             return response.data;
         });
     },
+    getUserProfile(id) {
+        return instance
+            .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
+            .then((response) => {
+                return response.data;
+            });
+    },
+    authMe() {
+        return instance
+            .get('https://social-network.samuraijs.com/api/1.0/auth/me')
+            .then((response) => {
+                return response.data;
+            });
+    },
 };
 
 export const foo = () => {};
