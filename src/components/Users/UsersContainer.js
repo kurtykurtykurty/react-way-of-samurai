@@ -2,42 +2,30 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Users from './Users';
+
 import {
-    follow,
-    setUsers,
-    unfollow,
     setCurrentPage,
-    setTotalUsersCount,
-    setIsFetching,
     toggleFollowingProgress,
+    getUsersThunkCreator,
+    followThunkCreator,
+    unfollowThunkCreator,
 } from '../../redux/usersReducer';
-import { usersAPI } from '../../api/api';
 
 class UsersAPIContainer extends React.Component {
     componentDidMount() {
-        this.props.setIsFetching(true);
-
-        usersAPI
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then((response) => {
-                this.props.setUsers(response.items);
-                this.props.setTotalUsersCount(response.totalCount);
-                this.props.setIsFetching(false);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (currentPage) => {
-        if (currentPage > 0) {
-            this.props.setIsFetching(true);
+        // this.props.setIsFetching(true);
 
-            this.props.setCurrentPage(currentPage);
-            usersAPI
-                .getUsers(currentPage, this.props.pageSize)
-                .then((response) => {
-                    this.props.setUsers(response.items);
-                    this.props.setIsFetching(false);
-                });
-        }
+        // this.props.setCurrentPage(currentPage);
+        // usersAPI.getUsers(currentPage, this.props.pageSize).then((response) => {
+        //     this.props.setUsers(response.items);
+        //     this.props.setIsFetching(false);
+        // });
+        this.props.setCurrentPage(currentPage);
+        this.props.getUsers(currentPage, this.props.pageSize);
     };
 
     render() {
@@ -93,13 +81,11 @@ const mapStateToProps = (state) => {
 // };
 
 const UsersContainer = connect(mapStateToProps, {
-    follow,
-    unfollow,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    setIsFetching,
     toggleFollowingProgress,
+    getUsers: getUsersThunkCreator,
+    follow: followThunkCreator,
+    unfollow: unfollowThunkCreator,
 })(UsersAPIContainer);
 
 export default UsersContainer;

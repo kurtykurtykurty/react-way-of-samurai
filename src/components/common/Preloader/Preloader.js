@@ -1,6 +1,6 @@
 import style from './Preloader.module.css';
 
-const Preloader = (props) => {
+const Preloader = () => {
     return (
         <>
             {/* <div className={style.ldsRing}>

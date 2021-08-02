@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // /* eslint-disable no-unused-expressions */
 /* eslint-disable no-nested-ternary */
 
@@ -5,10 +6,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './Users.module.css';
 import Preloader from '../common/Preloader/Preloader';
-import { usersAPI } from '../../api/api';
 
 const User = (props) => {
-    const myUser = 18645;
+    //! const myUser = 18645;
     return (
         <div className={style.container}>
             <div>
@@ -31,17 +31,7 @@ const User = (props) => {
                                 return id === props.id;
                             })}
                             onClick={() => {
-                                props.toggleFollowingProgress(true, props.id);
-                                console.log(props.id);
-                                usersAPI.unfollow(props.id).then((response) => {
-                                    if (response.resultCode === 0) {
-                                        props.unfollow(props.id);
-                                    }
-                                    props.toggleFollowingProgress(
-                                        false,
-                                        props.id,
-                                    );
-                                });
+                                props.unfollow(props.id);
                             }}
                         >
                             unfollow
@@ -53,18 +43,7 @@ const User = (props) => {
                                 return id === props.id;
                             })}
                             onClick={() => {
-                                props.toggleFollowingProgress(true, props.id);
-                                console.log(props.id);
-                                console.log('click');
-                                usersAPI.follow(props.id).then((response) => {
-                                    if (response.resultCode === 0) {
-                                        props.follow(props.id);
-                                    }
-                                    props.toggleFollowingProgress(
-                                        false,
-                                        props.id,
-                                    );
-                                });
+                                props.follow(props.id);
                             }}
                         >
                             follow
@@ -129,6 +108,7 @@ const Users = (props) => {
         <div>
             <div>
                 {pages.map((i) => {
+                    console.log('pages map');
                     return (
                         <button
                             type="button"
@@ -138,7 +118,7 @@ const Users = (props) => {
                                     ? style.activePage
                                     : undefined
                             }
-                            onClick={(e) => {
+                            onClick={() => {
                                 props.onPageChanged(i);
                             }}
                         >

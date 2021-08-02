@@ -1,7 +1,7 @@
 const initialState = {};
 
-const sidebarReduser = (state = initialState, action) => {
-  return state;
+const sidebarReduser = (state = initialState) => {
+    return state;
 };
 
 export default sidebarReduser;

@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 
 const VELLIO_API_KEY = '4bed342d-a07b-4784-ab63-6c76a0b43914';
-const KURTY_API_KEY = '92aa74a7-fa70-4d6c-8d8b-20a6b237851e';
+//! const KURTY_API_KEY = '92aa74a7-fa70-4d6c-8d8b-20a6b237851e';
 
 const instance = axios.create({
     withCredentials: true,

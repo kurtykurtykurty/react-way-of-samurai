@@ -1,4 +1,7 @@
 /* eslint-disable no-param-reassign */
+
+import { usersAPI } from '../api/api';
+
 /* eslint-disable indent */
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -57,6 +60,7 @@ const usersReduser = (state = initialState, action) => {
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
             console.log(action);
+            debugger;
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -73,14 +77,14 @@ const usersReduser = (state = initialState, action) => {
 
 export default usersReduser;
 
-export const follow = (id) => {
+export const followSuccess = (id) => {
     return {
         type: FOLLOW,
         id,
     };
 };
 
-export const unfollow = (id) => {
+export const unfollowSuccess = (id) => {
     return {
         type: UNFOLLOW,
         id,
@@ -120,5 +124,41 @@ export const toggleFollowingProgress = (isFetching, userId) => {
         type: TOGGLE_IS_FOLLOWING_PROGRESS,
         isFetching,
         userId,
+    };
+};
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(setIsFetching(true));
+
+        usersAPI.getUsers(currentPage, pageSize).then((response) => {
+            dispatch(setUsers(response.items));
+            dispatch(setTotalUsersCount(response.totalCount));
+            dispatch(setIsFetching(false));
+        });
+    };
+};
+
+export const followThunkCreator = (id) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, id)); //   TODO includes ?
+        usersAPI.follow(id).then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(followSuccess(id));
+            }
+            dispatch(toggleFollowingProgress(false, id));
+        });
+    };
+};
+
+export const unfollowThunkCreator = (id) => {
+    return (dispatch) => {
+        dispatch(toggleFollowingProgress(true, id));
+        usersAPI.unfollow(id).then((response) => {
+            if (response.resultCode === 0) {
+                dispatch(unfollowSuccess(id));
+            }
+            dispatch(toggleFollowingProgress(false, id));
+        });
     };
 };
