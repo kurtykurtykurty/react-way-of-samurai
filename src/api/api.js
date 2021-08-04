@@ -48,18 +48,25 @@ export const usersAPI = {
         });
     },
     getUserProfile(id) {
-        return instance
-            .get(`https://social-network.samuraijs.com/api/1.0/profile/${id}`)
-            .then((response) => {
-                return response.data;
-            });
+        return instance.get(`profile/${id}`).then((response) => {
+            return response.data;
+        });
     },
     authMe() {
-        return instance
-            .get('https://social-network.samuraijs.com/api/1.0/auth/me')
-            .then((response) => {
-                return response.data;
-            });
+        console.log('AuthMe');
+        return instance.get('auth/me').then((response) => {
+            return response.data;
+        });
+    },
+    getUserImg(id) {
+        return instance.get(`profile/${id}`).then((response) => {
+            if (response.data.photos.small) {
+                console.log('getUserImg');
+
+                return response.data.photos.small;
+            }
+            return null;
+        });
     },
 };
 

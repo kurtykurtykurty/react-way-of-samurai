@@ -12,11 +12,19 @@ import {
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        // let { userId } = this.props;
-        // if (!userId) {
-        //     userId = 2;
-        // }
-        // this.props.getUserProfile(userId); //! !!!
+        const { userId } = this.props;
+        if (this.props.match.params.userId) {
+            this.props.getUserProfile(this.props.match.params.userId);
+        } else {
+            this.props.getUserProfile(userId);
+        }
+    }
+
+    componentDidUpdate() {
+        if (!this.props.profile && !this.props.match.params.userId) {
+            console.log('didUpdate getUserProfile userId');
+            this.props.getUserProfile(this.props.userId);
+        }
     }
 
     componentWillUnmount() {
@@ -24,6 +32,7 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        console.log('render profile');
         return <Profile {...this.props} profile={this.props.profile} />;
     }
 }
@@ -32,6 +41,7 @@ const mapStateToProps = (state) => {
 };
 
 const WithURLDataContainerComponent = withRouter(ProfileContainer);
+
 export default connect(mapStateToProps, {
     setUserProfile,
     getUserProfile: getUserProfileThunkCreator,

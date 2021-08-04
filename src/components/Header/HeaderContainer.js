@@ -12,12 +12,15 @@ import {
 class HeaderContainer extends React.Component {
     componentDidMount() {
         this.props.authMe();
+        console.log('header mount');
     }
 
     componentDidUpdate() {
-        if (this.props.profile === null) {
-            this.props.getUserProfile(this.props.userId);
-        }
+        console.log('header update');
+    }
+
+    componentWillUnmount() {
+        console.log('header unmount');
     }
 
     render() {
@@ -30,6 +33,7 @@ const mapStateToProps = (state) => {
         login: state.auth.login,
         email: state.auth.email,
         isAuth: state.auth.isAuth,
+        img: state.auth.img.small,
         profile: state.profilePage.profile,
     };
 };

@@ -20,8 +20,8 @@ const Header = (props) => {
                     <img
                         className={style.userPic}
                         src={
-                            props.isAuth && props.profile?.photos?.small
-                                ? props.profile.photos.small
+                            props.isAuth && props.img
+                                ? props.img
                                 : 'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'
                         }
                         alt=""

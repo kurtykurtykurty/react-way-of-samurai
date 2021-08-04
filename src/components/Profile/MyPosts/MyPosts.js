@@ -19,7 +19,7 @@ const MyPosts = (props) => {
     const onAddPost = () => {
         props.addPost();
     };
-
+    console.log('render myposts');
     return (
         <div className={style.postsBlock}>
             <h3>My posts</h3>
