@@ -1,10 +1,17 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
+import {
+    applyMiddleware,
+    combineReducers,
+    createStore,
+    compose,
+} from 'redux';
 import thunkMiddlewere from 'redux-thunk';
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
 import sidebarReduser from './sidebarReduser';
 import usersReducer from './usersReducer';
 import authReducer from './authReducer';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducers = combineReducers({
     profilePage: profileReducer,
@@ -13,9 +20,12 @@ const reducers = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
 });
-
-const store = createStore(reducers, applyMiddleware(thunkMiddlewere));
-
+/* eslint-disable no-underscore-dangle */
+const store = createStore(
+    reducers,
+    composeEnhancers(applyMiddleware(thunkMiddlewere)),
+);
+/* eslint-disable */
 export default store;
 
 window.store = store;
