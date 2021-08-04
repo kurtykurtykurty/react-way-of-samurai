@@ -66,10 +66,10 @@ const Users = (props) => {
 
     const pages = [];
 
-    if (props.currentPage + 4 <= pagesCount) {
+    if (props.currentPage + 20 <= pagesCount) {
         for (
             let i = props.currentPage - 1;
-            i <= props.currentPage + 4;
+            i <= props.currentPage + 20;
             i += 1
         ) {
             if (i > 0) {
@@ -123,7 +123,7 @@ const Users = (props) => {
                         >
                             {i === props.currentPage - 1
                                 ? '<'
-                                : i === props.currentPage + 4
+                                : i === props.currentPage + 20
                                 ? '>'
                                 : i}
                         </button>
