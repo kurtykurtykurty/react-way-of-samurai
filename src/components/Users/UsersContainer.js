@@ -13,7 +13,13 @@ import {
 
 class UsersAPIContainer extends React.Component {
     componentDidMount() {
+        console.log('USERS MOUNT');
         this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    }
+
+    componentWillUnmount() {
+        console.log('USERS UNMOUNT');
+        this.props.setCurrentPage(1);
     }
 
     onPageChanged = (currentPage) => {
