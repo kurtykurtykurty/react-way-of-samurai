@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 import Profile from './Profile';
 import {
     setUserProfile,
@@ -21,6 +21,7 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidUpdate() {
+        console.log('PROFILE UPDATE');
         if (!this.props.profile && !this.props.match.params.userId) {
             console.log('didUpdate getUserProfile userId');
             this.props.getUserProfile(this.props.userId);
@@ -32,12 +33,20 @@ class ProfileContainer extends React.Component {
     }
 
     render() {
+        if (!this.props.match.params.userId && !this.props.isAuth) {
+            return <Redirect to="/profile" />;
+        }
         console.log('render profile');
         return <Profile {...this.props} profile={this.props.profile} />;
     }
 }
 const mapStateToProps = (state) => {
-    return { profile: state.profilePage.profile, userId: state.auth.userId };
+    console.log('MAPSTATETOPROPS profile container');
+    return {
+        profile: state.profilePage.profile,
+        userId: state.auth.userId,
+        isAuth: state.auth.isAuth,
+    };
 };
 
 const WithURLDataContainerComponent = withRouter(ProfileContainer);

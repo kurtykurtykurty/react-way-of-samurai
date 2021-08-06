@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import style from './index.module.css';
+import Login from './components/Login/Login';
 
 function App() {
     return (
@@ -31,6 +32,12 @@ function App() {
                         path="/users"
                         render={() => {
                             return <UsersContainer />;
+                        }}
+                    />
+                    <Route
+                        path="/login"
+                        render={() => {
+                            return <Login />;
                         }}
                     />
                 </div>

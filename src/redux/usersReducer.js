@@ -59,8 +59,6 @@ const usersReduser = (state = initialState, action) => {
             return { ...state, isFetching: action.isFetching };
         }
         case TOGGLE_IS_FOLLOWING_PROGRESS: {
-            console.log(action);
-            debugger;
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -70,6 +68,7 @@ const usersReduser = (state = initialState, action) => {
                       }),
             };
         }
+
         default:
             return state;
     }

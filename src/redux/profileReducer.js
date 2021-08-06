@@ -69,8 +69,10 @@ export const setUserProfile = (profile) => {
 
 export const getUserProfileThunkCreator = (id) => {
     return (dispatch) => {
-        usersAPI.getUserProfile(id).then((response) => {
-            dispatch(setUserProfile(response));
-        });
+        if (id) {
+            usersAPI.getUserProfile(id).then((response) => {
+                dispatch(setUserProfile(response));
+            });
+        }
     };
 };

@@ -1,9 +1,9 @@
 import {
     applyMiddleware,
-    combineReducers,
-    createStore,
-    compose,
-} from 'redux';
+     combineReducers,
+      createStore,
+       compose,
+     } from 'redux';
 import thunkMiddlewere from 'redux-thunk';
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
@@ -21,6 +21,7 @@ const reducers = combineReducers({
     auth: authReducer,
 });
 /* eslint-disable no-underscore-dangle */
+
 const store = createStore(
     reducers,
     composeEnhancers(applyMiddleware(thunkMiddlewere)),
@@ -29,3 +30,4 @@ const store = createStore(
 export default store;
 
 window.store = store;
+
