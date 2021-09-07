@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import Dialogs from './Dialogs';
 import {
     sendNewMessageActionCreator,
@@ -18,26 +19,21 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-let AuthRedirectComponent = redirectContainer(Dialogs);
-
-const mapStateToPropsForRedirect = (state) => {
-    return { isAuth: state.auth.isAuth };
-};
-
-// AuthRedirectComponent = connect(mapStateToPropsForRedirect)(
-//     AuthRedirectComponent,
-// );
-
 const mapStateToProps = (state) => {
     return { dialogsPage: state.dialogsPage };
 };
 
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    redirectContainer,
+)(Dialogs);
+
+/*
 const DialogsContainer = connect(
     mapStateToProps,
     mapDispatchToProps,
 )(AuthRedirectComponent);
 
-/*
     Next code is equal to above
 
 const DialogsContainer = connect(
@@ -52,5 +48,3 @@ const DialogsContainer = connect(
 });
 
 */
-
-export default DialogsContainer;

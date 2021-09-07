@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 
 import Users from './Users';
@@ -12,6 +13,7 @@ import {
     followThunkCreator,
     unfollowThunkCreator,
 } from '../../redux/usersReducer';
+import redirectContainer from '../../hoc/redirectContainer';
 
 function UsersAPIContainer({
     usersPage,
@@ -74,14 +76,14 @@ const mapStateToProps = (state) => {
     };
 };
 
-const withRouterUsersApiContainer = withRouter(UsersAPIContainer);
-
-const UsersContainer = connect(mapStateToProps, {
-    setCurrentPage,
-    toggleFollowingProgress,
-    getUsers: getUsersThunkCreator,
-    follow: followThunkCreator,
-    unfollow: unfollowThunkCreator,
-})(withRouterUsersApiContainer);
-
-export default UsersContainer;
+export default compose(
+    connect(mapStateToProps, {
+        setCurrentPage,
+        toggleFollowingProgress,
+        getUsers: getUsersThunkCreator,
+        follow: followThunkCreator,
+        unfollow: unfollowThunkCreator,
+    }),
+    withRouter,
+    redirectContainer,
+)(UsersAPIContainer);

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
 
@@ -42,8 +43,8 @@ const mapStateToProps = (state) => {
         authStatus: state.auth.authStatus,
     };
 };
-const WithURLDataContainerComponent = withRouter(ProfileContainer); //! note
 
-export default connect(mapStateToProps, {
-    getUserProfile: getUserProfileThunkCreator,
-})(WithURLDataContainerComponent);
+export default compose(
+    connect(mapStateToProps, { getUserProfile: getUserProfileThunkCreator }),
+    withRouter,
+)(ProfileContainer);
