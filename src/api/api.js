@@ -48,6 +48,9 @@ export const usersAPI = {
         });
     },
     getUserProfile(id) {
+        console.log(
+            '############################################getuserProfile',
+        );
         return instance.get(`profile/${id}`).then((response) => {
             return response.data;
         });

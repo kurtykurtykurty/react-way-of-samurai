@@ -5,9 +5,7 @@ import {
     updateNewMessageBodyActionCreator,
 } from '../../redux/dialogsReducer';
 
-const mapStateToProps = (state) => {
-    return { dialogsPage: state.dialogsPage, isAuth: state.auth.isAuth };
-};
+import redirectContainer from '../../hoc/redirectContainer';
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -20,6 +18,39 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+let AuthRedirectComponent = redirectContainer(Dialogs);
+
+const mapStateToPropsForRedirect = (state) => {
+    return { isAuth: state.auth.isAuth };
+};
+
+// AuthRedirectComponent = connect(mapStateToPropsForRedirect)(
+//     AuthRedirectComponent,
+// );
+
+const mapStateToProps = (state) => {
+    return { dialogsPage: state.dialogsPage };
+};
+
+const DialogsContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(AuthRedirectComponent);
+
+/*
+    Next code is equal to above
+
+const DialogsContainer = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)((props) => {
+    if (props.isAuth) {
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        return <Dialogs {...props} />;
+    }
+    return <Login />;
+});
+
+*/
 
 export default DialogsContainer;

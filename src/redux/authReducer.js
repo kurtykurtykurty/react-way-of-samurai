@@ -2,6 +2,7 @@ import { usersAPI } from '../api/api';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_IMG = 'SET_IMG';
+const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 
 const initialState = {
     userId: null,
@@ -10,6 +11,7 @@ const initialState = {
     img: { small: null },
     isFetching: false,
     isAuth: false,
+    authStatus: null,
 };
 
 export default function authReducer(state = initialState, action) {
@@ -25,6 +27,12 @@ export default function authReducer(state = initialState, action) {
             return {
                 ...state,
                 img: { small: action.img },
+            };
+        }
+        case SET_AUTH_STATUS: {
+            return {
+                ...state,
+                authStatus: action.status,
             };
         }
         default: {
@@ -47,10 +55,17 @@ export const setImg = (img) => {
     };
 };
 
+const setAuthStatus = (status) => {
+    return {
+        type: SET_AUTH_STATUS,
+        status,
+    };
+};
 export const setAuthUserDataThunkCreator = () => {
     return (dispatch) => {
         usersAPI.authMe().then((response) => {
             if (response.resultCode === 0) {
+                dispatch(setAuthStatus(true));
                 dispatch(
                     setAuthUserData(
                         response.data.id,
@@ -61,7 +76,7 @@ export const setAuthUserDataThunkCreator = () => {
                 usersAPI.getUserImg(response.data.id).then((img) => {
                     dispatch(setImg(img));
                 });
-            }
+            } else dispatch(setAuthStatus(false));
         });
     };
 };

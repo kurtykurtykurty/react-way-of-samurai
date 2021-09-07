@@ -21,6 +21,16 @@ const Navbar = () => {
                 </NavLink>
             </div>
             <div>News</div>
+            <div>
+                <NavLink to="/redirect" activeClassName={style.active}>
+                    Redirect
+                </NavLink>
+            </div>
+            <div>
+                <NavLink to="/hook" activeClassName={style.active}>
+                    Hook
+                </NavLink>
+            </div>
         </nav>
     );
 };

@@ -7,6 +7,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import UsersContainer from './components/Users/UsersContainer';
 import style from './index.module.css';
 import Login from './components/Login/Login';
+import Hook from './components/Hook';
 
 function App() {
     return (
@@ -29,7 +30,7 @@ function App() {
                         }}
                     />
                     <Route
-                        path="/users"
+                        path="/users/:currentPage?"
                         render={() => {
                             return <UsersContainer />;
                         }}
@@ -38,6 +39,18 @@ function App() {
                         path="/login"
                         render={() => {
                             return <Login />;
+                        }}
+                    />
+                    <Route
+                        path="/redirect"
+                        render={() => {
+                            return <DialogsContainer />;
+                        }}
+                    />
+                    <Route
+                        path="/hook"
+                        render={() => {
+                            return <Hook />;
                         }}
                     />
                 </div>

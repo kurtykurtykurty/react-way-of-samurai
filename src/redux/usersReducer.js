@@ -20,7 +20,7 @@ const initialState = {
     isFetching: true,
 };
 
-const usersReduser = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case FOLLOW: {
             const { id } = action;
@@ -74,7 +74,7 @@ const usersReduser = (state = initialState, action) => {
     }
 };
 
-export default usersReduser;
+export default usersReducer;
 
 export const followSuccess = (id) => {
     return {

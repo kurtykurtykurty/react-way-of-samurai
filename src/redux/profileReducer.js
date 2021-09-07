@@ -3,6 +3,8 @@ import { usersAPI } from '../api/api';
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
+const SET_PROFILE_ID = 'SET_PROFILE_ID';
 
 const initialState = {
     posts: [
@@ -11,6 +13,8 @@ const initialState = {
     ],
     newPostText: '',
     profile: null,
+    isFetching: true,
+    profileId: null,
 };
 
 let countId = 2;
@@ -38,6 +42,12 @@ const profileReducer = (state = initialState, action) => {
         }
         case SET_USER_PROFILE: {
             return { ...state, profile: action.profile };
+        }
+        case SET_IS_FETCHING: {
+            return { ...state, isFetching: action.isFetching };
+        }
+        case SET_PROFILE_ID: {
+            return { ...state, profileId: action.id };
         }
         default: {
             return state;
@@ -67,12 +77,32 @@ export const setUserProfile = (profile) => {
     };
 };
 
+const setIsFetching = (isFetching) => {
+    return {
+        type: SET_IS_FETCHING,
+        isFetching,
+    };
+};
+
+const setProfileId = (id) => {
+    return {
+        type: SET_PROFILE_ID,
+        id,
+    };
+};
 export const getUserProfileThunkCreator = (id) => {
+    console.log('GETUSERPROFILETHUNKCREATOR');
     return (dispatch) => {
-        if (id) {
-            usersAPI.getUserProfile(id).then((response) => {
+        dispatch(setProfileId(id));
+        dispatch(setIsFetching(true));
+        usersAPI
+            .getUserProfile(id)
+            .then((response) => {
                 dispatch(setUserProfile(response));
+                dispatch(setIsFetching(false));
+            })
+            .catch((err) => {
+                console.dir(err.response.status);
             });
-        }
     };
 };

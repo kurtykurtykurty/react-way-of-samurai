@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './index.module.css';
 
-const Header = (props) => {
+const Header = ({ isAuth, img, login }) => {
     return (
         <header className={style.header}>
             <NavLink to="/">
@@ -20,18 +20,14 @@ const Header = (props) => {
                     <img
                         className={style.userPic}
                         src={
-                            props.isAuth && props.img
-                                ? props.img
+                            isAuth && img
+                                ? img
                                 : 'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'
                         }
                         alt=""
                     />
                 </div>
-                {props.isAuth ? (
-                    props.login
-                ) : (
-                    <NavLink to="/login">Login</NavLink>
-                )}
+                {isAuth ? login : <NavLink to="/login">Login</NavLink>}
             </div>
         </header>
     );

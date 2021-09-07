@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable no-shadow */
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Users from './Users';
 
@@ -11,45 +13,54 @@ import {
     unfollowThunkCreator,
 } from '../../redux/usersReducer';
 
-class UsersAPIContainer extends React.Component {
-    componentDidMount() {
+function UsersAPIContainer({
+    usersPage,
+    pageSize,
+    totalUsersCount,
+    currentPage,
+    isFetching,
+    followingInProgress,
+    getUsers,
+    follow,
+    unfollow,
+    setCurrentPage,
+    match,
+}) {
+    useEffect(() => {
         console.log('USERS MOUNT');
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        console.log('match.params.currentPage', match.params.currentPage);
+        if (match.params.currentPage) {
+            getUsers(match.params.currentPage, pageSize);
+            setCurrentPage(Number(match.params.currentPage));
+        } else {
+            getUsers(1, pageSize);
+            setCurrentPage(1);
+        }
+        return () => {
+            console.log('USERS UNMOUNT');
+            // setCurrentPage(1); //!TODO set default current page when unmount
+        };
+    }, [currentPage, match]);
+
+    function onPageChanged(currentPage) {
+        setCurrentPage(currentPage);
+        getUsers(currentPage, pageSize);
     }
 
-    componentWillUnmount() {
-        console.log('USERS UNMOUNT');
-        this.props.setCurrentPage(1);
-    }
-
-    onPageChanged = (currentPage) => {
-        // this.props.setIsFetching(true);
-
-        // this.props.setCurrentPage(currentPage);
-        // usersAPI.getUsers(currentPage, this.props.pageSize).then((response) => {
-        //     this.props.setUsers(response.items);
-        //     this.props.setIsFetching(false);
-        // });
-        this.props.setCurrentPage(currentPage);
-        this.props.getUsers(currentPage, this.props.pageSize);
-    };
-
-    render() {
-        return (
-            <Users
-                totalUsersCount={this.props.totalUsersCount}
-                pageSize={this.props.pageSize}
-                usersPage={this.props.usersPage}
-                currentPage={this.props.currentPage}
-                onPageChanged={this.onPageChanged}
-                follow={this.props.follow}
-                unfollow={this.props.unfollow}
-                isFetching={this.props.isFetching}
-                toggleFollowingProgress={this.props.toggleFollowingProgress}
-                followingInProgress={this.props.followingInProgress}
-            />
-        );
-    }
+    return (
+        <Users
+            totalUsersCount={totalUsersCount}
+            pageSize={pageSize}
+            usersPage={usersPage}
+            currentPage={currentPage}
+            onPageChanged={() => onPageChanged}
+            follow={follow}
+            unfollow={unfollow}
+            isFetching={isFetching}
+            toggleFollowingProgress={toggleFollowingProgress}
+            followingInProgress={followingInProgress}
+        />
+    );
 }
 
 const mapStateToProps = (state) => {
@@ -63,28 +74,7 @@ const mapStateToProps = (state) => {
     };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followAC(userId));
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowAC(userId));
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersAC(users));
-//         },
-//         setCurrentPage: (currentPage) => {
-//             dispatch(setCurrentPageAC(currentPage));
-//         },
-//         setTotalUsersCount: (totalCount) => {
-//             dispatch(setTotalUsersCountAC(totalCount));
-//         },
-//         setIsFetching: (isFetching) => {
-//             dispatch(setIsFetchingAC(isFetching));
-//         },
-//     };
-// };
+const withRouterUsersApiContainer = withRouter(UsersAPIContainer);
 
 const UsersContainer = connect(mapStateToProps, {
     setCurrentPage,
@@ -92,6 +82,6 @@ const UsersContainer = connect(mapStateToProps, {
     getUsers: getUsersThunkCreator,
     follow: followThunkCreator,
     unfollow: unfollowThunkCreator,
-})(UsersAPIContainer);
+})(withRouterUsersApiContainer);
 
 export default UsersContainer;

@@ -1,57 +1,49 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/prefer-stateless-function */
-import React from 'react';
-
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
+
 import Profile from './Profile';
-import {
-    setUserProfile,
-    getUserProfileThunkCreator,
-} from '../../redux/profileReducer';
 
-class ProfileContainer extends React.Component {
-    componentDidMount() {
-        const { userId } = this.props;
-        if (this.props.match.params.userId) {
-            this.props.getUserProfile(this.props.match.params.userId);
-        } else {
-            this.props.getUserProfile(userId);
+import { getUserProfileThunkCreator } from '../../redux/profileReducer';
+
+function ProfileContainer({
+    profile,
+    isFetching,
+    userId,
+    authStatus,
+    match,
+    getUserProfile,
+}) {
+    useEffect(() => {
+        console.log('PROFILE mount, userId=', userId);
+        if (match.params.userId) {
+            getUserProfile(match.params.userId);
+        } else if (authStatus) {
+            getUserProfile(userId);
         }
-    }
+        return () => {
+            console.log('PROFILE unmount');
+        };
+    }, [match.params.userId, userId]);
 
-    componentDidUpdate() {
-        console.log('PROFILE UPDATE');
-        if (!this.props.profile && !this.props.match.params.userId) {
-            console.log('didUpdate getUserProfile userId');
-            this.props.getUserProfile(this.props.userId);
-        }
+    if (!match.params.userId && authStatus === false) {
+        return <Redirect to="/login" />;
     }
-
-    componentWillUnmount() {
-        console.log('profile unmount');
-    }
-
-    render() {
-        if (!this.props.match.params.userId && !this.props.isAuth) {
-            return <Redirect to="/profile" />;
-        }
-        console.log('render profile');
-        return <Profile {...this.props} profile={this.props.profile} />;
-    }
+    console.log('render profile');
+    return <Profile isFetching={isFetching} profile={profile} />;
 }
+
 const mapStateToProps = (state) => {
-    console.log('MAPSTATETOPROPS profile container');
     return {
         profile: state.profilePage.profile,
+        isFetching: state.profilePage.isFetching,
         userId: state.auth.userId,
-        isAuth: state.auth.isAuth,
+        profileId: state.profilePage.profileId,
+        authStatus: state.auth.authStatus,
     };
 };
-
-const WithURLDataContainerComponent = withRouter(ProfileContainer);
+const WithURLDataContainerComponent = withRouter(ProfileContainer); //! note
 
 export default connect(mapStateToProps, {
-    setUserProfile,
     getUserProfile: getUserProfileThunkCreator,
 })(WithURLDataContainerComponent);
