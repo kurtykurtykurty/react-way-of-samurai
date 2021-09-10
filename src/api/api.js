@@ -47,14 +47,17 @@ export const usersAPI = {
             return response.data;
         });
     },
+};
+
+export const profileAPI = {
     getUserProfile(id) {
-        console.log(
-            '############################################getuserProfile',
-        );
         return instance.get(`profile/${id}`).then((response) => {
             return response.data;
         });
     },
+};
+
+export const authAPI = {
     authMe() {
         console.log('AuthMe');
         return instance.get('auth/me').then((response) => {
@@ -72,5 +75,3 @@ export const usersAPI = {
         });
     },
 };
-
-export const foo = () => {};

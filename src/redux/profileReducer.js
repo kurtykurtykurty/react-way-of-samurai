@@ -1,4 +1,4 @@
-import { usersAPI } from '../api/api';
+import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -95,7 +95,7 @@ export const getUserProfileThunkCreator = (id) => {
     return (dispatch) => {
         dispatch(setProfileId(id));
         dispatch(setIsFetching(true));
-        usersAPI
+        profileAPI
             .getUserProfile(id)
             .then((response) => {
                 dispatch(setUserProfile(response));

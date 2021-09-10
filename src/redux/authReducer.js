@@ -1,4 +1,4 @@
-import { usersAPI } from '../api/api';
+import { authAPI } from '../api/api';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_IMG = 'SET_IMG';
@@ -63,7 +63,7 @@ const setAuthStatus = (status) => {
 };
 export const setAuthUserDataThunkCreator = () => {
     return (dispatch) => {
-        usersAPI.authMe().then((response) => {
+        authAPI.authMe().then((response) => {
             if (response.resultCode === 0) {
                 dispatch(setAuthStatus(true));
                 dispatch(
@@ -73,7 +73,7 @@ export const setAuthUserDataThunkCreator = () => {
                         response.data.login,
                     ),
                 );
-                usersAPI.getUserImg(response.data.id).then((img) => {
+                authAPI.getUserImg(response.data.id).then((img) => {
                     dispatch(setImg(img));
                 });
             } else dispatch(setAuthStatus(false));
