@@ -1,9 +1,10 @@
 /* eslint-disable consistent-return */
 /* eslint-disable operator-linebreak */
 import style from './index.module.css';
+import ProfileStatus from './ProfileStatus';
 
-const Profile = (props) => {
-    if (props.profile) {
+const Profile = ({ profile }) => {
+    if (profile) {
         return (
             <div className={style.profile}>
                 <div>
@@ -11,63 +12,57 @@ const Profile = (props) => {
                         className={style.poster}
                         // src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Alexander_cuts_the_Gordian_Knot.jpg"
                         src={
-                            props.profile.photos.large
-                                ? props.profile.photos.large
+                            profile.photos.large
+                                ? profile.photos.large
                                 : 'https://lowcars.net/wp-content/uploads/2017/02/userpic.png'
                         }
                         alt=""
                     />
+                    <ProfileStatus status="fuck off" />
                     <div>
-                        <h2>{props.profile.aboutMe}</h2>
+                        <h2>{profile.aboutMe}</h2>
                         <ul>
                             <li>
                                 Contacts:
                                 <ul>
-                                    <li>{props.profile.contacts.website}</li>
-                                    <li>{props.profile.contacts.facebook}</li>
-                                    <li>{props.profile.contacts.vk}</li>
-                                    <li>{props.profile.contacts.twitter}</li>
-                                    <li>{props.profile.contacts.instagram}</li>
-                                    <li>{props.profile.contacts.youtube}</li>
-                                    <li>{props.profile.contacts.github}</li>
-                                    <li>{props.profile.contacts.mainlink}</li>
+                                    <li>{profile.contacts.website}</li>
+                                    <li>{profile.contacts.facebook}</li>
+                                    <li>{profile.contacts.vk}</li>
+                                    <li>{profile.contacts.twitter}</li>
+                                    <li>{profile.contacts.instagram}</li>
+                                    <li>{profile.contacts.youtube}</li>
+                                    <li>{profile.contacts.github}</li>
+                                    <li>{profile.contacts.mainlink}</li>
                                 </ul>
                             </li>
                             <li>
                                 Looking for a job
                                 <ul>
                                     <li>
-                                        {props.profile.lookingForAJob
-                                            ? '✓'
-                                            : 'X'}
+                                        {profile.lookingForAJob ? '✓' : 'X'}
                                     </li>
                                 </ul>
                             </li>
                             <li>
                                 lookingForAJobDescription
                                 <ul>
-                                    <li>
-                                        {
-                                            props.profile
-                                                .lookingForAJobDescription
-                                        }
-                                    </li>
+                                    <li>{profile.lookingForAJobDescription}</li>
                                 </ul>
                             </li>
                             <li>
                                 Full name
                                 <ul>
-                                    <li>{props.profile.fullName}</li>
+                                    <li>{profile.fullName}</li>
                                 </ul>
                             </li>
                             <li>
                                 User ID
                                 <ul>
-                                    <li>{props.profile.userId}</li>
+                                    <li>{profile.userId}</li>
                                 </ul>
                             </li>
 
-                            <img src={props.profile.photos.small} alt="" />
+                            <img src={profile.photos.small} alt="" />
                         </ul>
                     </div>
                 </div>
@@ -75,6 +70,6 @@ const Profile = (props) => {
             </div>
         );
     }
-    return null;
+    return <h2>Not profile!</h2>;
 };
 export default Profile;
