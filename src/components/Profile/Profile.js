@@ -1,15 +1,11 @@
 import Preloader from '../common/Preloader/Preloader';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import ProfileInfo from './ProfileInfo';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = (props) => {
+const Profile = ({ isFetching, profile }) => {
     return (
         <div>
-            {props.isFetching ? (
-                <Preloader />
-            ) : (
-                <ProfileInfo profile={props.profile} />
-            )}
+            {isFetching ? <Preloader /> : <ProfileInfo profile={profile} />}
             <MyPostsContainer />
         </div>
     );
