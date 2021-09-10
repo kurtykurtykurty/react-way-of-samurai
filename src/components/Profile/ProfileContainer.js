@@ -9,7 +9,6 @@ import { getUserProfileThunkCreator } from '../../redux/profileReducer';
 
 function ProfileContainer({
     profile,
-    isFetching,
     userId,
     authStatus,
     match,
@@ -31,7 +30,7 @@ function ProfileContainer({
         return <Redirect to="/login" />;
     }
     console.log('render profile');
-    return <Profile isFetching={isFetching} profile={profile} />;
+    return <Profile profile={profile} />;
 }
 
 const mapStateToProps = (state) => {
