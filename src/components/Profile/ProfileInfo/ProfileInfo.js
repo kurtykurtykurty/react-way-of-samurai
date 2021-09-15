@@ -3,7 +3,7 @@
 import style from './index.module.css';
 import ProfileStatus from './ProfileStatus';
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile, status, updateStatus }) => {
     if (profile) {
         return (
             <div className={style.profile}>
@@ -18,7 +18,10 @@ const Profile = ({ profile }) => {
                         }
                         alt=""
                     />
-                    <ProfileStatus status="fuck off" />
+                    <ProfileStatus
+                        status={status}
+                        updateStatus={updateStatus}
+                    />
                     <div>
                         <h2>{profile.aboutMe}</h2>
                         <ul>

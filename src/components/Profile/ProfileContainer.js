@@ -6,32 +6,40 @@ import { Redirect, withRouter } from 'react-router-dom';
 import Profile from './Profile';
 
 import { getUserProfileThunkCreator } from '../../redux/profileReducer';
+import { getStatus, updateStatus } from './../../redux/profileReducer';
 
-function ProfileContainer({
+const ProfileContainer = ({
     profile,
     userId,
     authStatus,
     match,
     getUserProfile,
-}) {
+    status,
+    getStatusProfile,
+    updateStatusProfile,
+}) => {
     useEffect(() => {
-        console.log('PROFILE mount, userId=', userId);
         if (match.params.userId) {
             getUserProfile(match.params.userId);
+            getStatusProfile(match.params.userId);
         } else if (authStatus) {
             getUserProfile(userId);
+            getStatusProfile(userId);
         }
-        return () => {
-            console.log('PROFILE unmount');
-        };
-    }, [match.params.userId, userId]);
+        return () => {};
+    }, [match.params.userId, userId, status]);
 
     if (!match.params.userId && authStatus === false) {
         return <Redirect to="/login" />;
     }
-    console.log('render profile');
-    return <Profile profile={profile} />;
-}
+    return (
+        <Profile
+            profile={profile}
+            status={status}
+            updateStatus={updateStatusProfile}
+        />
+    );
+};
 
 const mapStateToProps = (state) => {
     return {
@@ -40,10 +48,15 @@ const mapStateToProps = (state) => {
         userId: state.auth.userId,
         profileId: state.profilePage.profileId,
         authStatus: state.auth.authStatus,
+        status: state.profilePage.status,
     };
 };
 
 export default compose(
-    connect(mapStateToProps, { getUserProfile: getUserProfileThunkCreator }),
+    connect(mapStateToProps, {
+        getUserProfile: getUserProfileThunkCreator,
+        getStatusProfile: getStatus,
+        updateStatusProfile: updateStatus,
+    }),
     withRouter,
 )(ProfileContainer);

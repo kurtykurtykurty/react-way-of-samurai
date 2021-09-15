@@ -5,6 +5,7 @@ const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_IS_FETCHING = 'SET_IS_FETCHING';
 const SET_PROFILE_ID = 'SET_PROFILE_ID';
+const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
     posts: [
@@ -15,6 +16,7 @@ const initialState = {
     profile: null,
     isFetching: true,
     profileId: null,
+    status: '',
 };
 
 let countId = 2;
@@ -48,6 +50,9 @@ const profileReducer = (state = initialState, action) => {
         }
         case SET_PROFILE_ID: {
             return { ...state, profileId: action.id };
+        }
+        case SET_STATUS: {
+            return { ...state, status: action.status };
         }
         default: {
             return state;
@@ -90,6 +95,13 @@ const setProfileId = (id) => {
         id,
     };
 };
+const setStatus = (status) => {
+    return {
+        type: SET_STATUS,
+        status,
+    };
+};
+
 export const getUserProfileThunkCreator = (id) => {
     console.log('GETUSERPROFILETHUNKCREATOR');
     return (dispatch) => {
@@ -105,4 +117,20 @@ export const getUserProfileThunkCreator = (id) => {
                 console.dir(err.response.status);
             });
     };
+};
+
+export const getStatus = (userId) => (dispatch) => {
+    profileAPI.getStatus(userId).then((response) => {
+        dispatch(setStatus(response));
+    });
+};
+
+export const updateStatus = (status) => (dispatch) => {
+    profileAPI.setStatus(status).then((response) => {
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status));
+        } else if (response.data.massage) {
+            alert(response.data.massage);
+        }
+    });
 };

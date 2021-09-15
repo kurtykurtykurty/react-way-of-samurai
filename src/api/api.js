@@ -55,6 +55,18 @@ export const profileAPI = {
             return response.data;
         });
     },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`).then((response) => {
+            return response.data;
+        });
+    },
+    setStatus(status) {
+        return instance
+            .put('profile/status', { status: status })
+            .then((response) => {
+                return response;
+            });
+    },
 };
 
 export const authAPI = {
@@ -67,8 +79,6 @@ export const authAPI = {
     getUserImg(id) {
         return instance.get(`profile/${id}`).then((response) => {
             if (response.data.photos.small) {
-                console.log('getUserImg');
-
                 return response.data.photos.small;
             }
             return null;
