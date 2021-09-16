@@ -3,7 +3,6 @@ import { useState } from 'react';
 const ProfileStatus = ({ status, updateStatus }) => {
     const [isEdit, editMode] = useState(false);
     const [statusText, editText] = useState(status);
-    console.log(statusText);
 
     function toggleEdit(e) {
         if (!e.relatedTarget || !e.currentTarget.contains(e.relatedTarget)) {

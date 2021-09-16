@@ -2,22 +2,21 @@ import style from './index.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 
-const Dialogs = (props) => {
-    const state = props.dialogsPage;
-    const dialogsElements = state.dialogs.map((obj) => {
+const Dialogs = ({ dialogsPage, updateNewMessageBody, sendMessage }) => {
+    const dialogsElements = dialogsPage.dialogs.map((obj) => {
         return <DialogItem name={obj.name} key={obj.id} id={obj.id} />;
     });
-    const messageElements = state.messages.map((obj) => {
+    const messageElements = dialogsPage.messages.map((obj) => {
         return <Message message={obj.message} key={obj.id} />;
     });
 
     const onSendMessageClick = () => {
-        props.sendMessage();
+        sendMessage();
     };
 
     const onMessageChange = (e) => {
         const body = e.target.value; //!
-        props.updateNewMessageBody(body);
+        updateNewMessageBody(body);
     };
 
     return (
@@ -29,7 +28,7 @@ const Dialogs = (props) => {
                     <textarea
                         placeholder="Enter your message"
                         onChange={onMessageChange}
-                        value={state.newMessageBody}
+                        value={dialogsPage.newMessageBody}
                     />
                 </div>
                 <div>
